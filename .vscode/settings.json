@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"*.json": "c",
+		"mlx.h": "c"
+	}
+}
