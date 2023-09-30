@@ -1,0 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_maps.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/30 20:34:17 by seungule          #+#    #+#             */
+/*   Updated: 2023/09/30 22:22:46 by seungule         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	check_string(t_map *map, char *string, int height)
+{
+	int	i;
+	int	len;
+
+	len = ft_strlen(string) - 2;
+	i = 0;
+	if (string[0] != '1' || string[len] != '1')
+		return (0);
+	while (i < len)
+	{
+		if ((height == 1 || height == map->map_height) && string[i] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	check_map_height(t_map *map)
+{
+	int		fd;
+	int		width;
+	char	*string;
+
+	fd = open("./maps/maps.ber", O_RDONLY);
+	while (1)
+	{
+		string = get_next_line(fd);
+		if (!string)
+			break ;
+		width = ft_strlen(string) - 1;
+		if (map->map_height != 0 && width != map->map_width)
+			error();
+		map->map_width = width;
+		map->map_height++;
+		free(string);
+	}
+	close(fd);
+}
+
+void	check_maps(t_map *map)
+{
+	int		fd;
+	int		height;
+	char	*string;
+
+	height = 1;
+	check_map_height(map);
+	if (map->map_height <= 0)
+		error();
+	fd = open("./maps/maps.ber", O_RDONLY);
+	while (1)
+	{
+		string = get_next_line(fd);
+		if (!string)
+			break ;
+		if(!check_string(map, string, height))
+		{
+			free(string);
+			close(fd);
+			error();
+		}
+		height++;
+		free(string);
+	}
+	map->map_height = height;
+	close(fd);
+}

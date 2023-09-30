@@ -4,10 +4,15 @@ MINILIBX_DIR = ./minilibx_opengl
 CFLAGS = -Wall -Wextra -Werror
 NAME = so_long
 
-SRCS =	so_long.c								\
-		hooks.c									\
-		./get_next_line/get_next_line.c			\
+SRCS =	./get_next_line/get_next_line.c			\
 		./get_next_line/get_next_line_utils.c	\
+		so_long.c								\
+		hooks.c									\
+		exact_color.c							\
+		make_background.c						\
+		put_image.c								\
+		check_maps.c							\
+		so_long_utils.c							\
 
 OBJS =	$(SRCS:%.c=%.o)
 
