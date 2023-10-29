@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"*.json": "c",
-		"ios": "c"
+		"ios": "c",
+		"locale": "c"
 	}
 }

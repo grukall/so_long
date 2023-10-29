@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:49:22 by seungule          #+#    #+#             */
-/*   Updated: 2023/09/30 19:50:17 by seungule         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:45:07 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ void	put_image(t_data *image, t_data *block, int image_x, int image_y)
 		{
 			color = exact_image_color(block, block_x, block_y);
 			my_mlx_pixel_put(image, image_x + block_x, image_y + block_y, color);
+		}
+	}
+}
+
+void	put_image_empty(t_data *image, int image_x, int image_y)
+{
+	for (int block_y = 0; block_y <	50; block_y++)
+	{
+		for (int block_x = 0; block_x < 50; block_x++)
+		{
+			my_mlx_pixel_put(image, image_x + block_x, image_y + block_y, 0xFF000000);
 		}
 	}
 }

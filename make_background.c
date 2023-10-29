@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:53:48 by seungule          #+#    #+#             */
-/*   Updated: 2023/09/30 20:55:49 by seungule         ###   ########.fr       */
+/*   Updated: 2023/10/29 19:55:44 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	make_background(t_data *background, t_vars *vars)
 		}
 		background_y += bg_block.img_height;
 	}
+	mlx_put_image_to_window(vars->mlx, vars->win, background->img, 0, 0);  //윈도우에 backgroud.img 넣기
 }

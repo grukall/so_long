@@ -12,7 +12,10 @@ SRCS =	./get_next_line/get_next_line.c			\
 		make_background.c						\
 		put_image.c								\
 		check_maps.c							\
+		check_maps_path.c						\
+		make_map.c								\
 		so_long_utils.c							\
+		dfs.c									\
 
 OBJS =	$(SRCS:%.c=%.o)
 
