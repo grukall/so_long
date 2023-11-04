@@ -2,6 +2,8 @@
 	"files.associations": {
 		"*.json": "c",
 		"ios": "c",
-		"locale": "c"
+		"locale": "c",
+		"string": "c",
+		"iosfwd": "c"
 	}
 }

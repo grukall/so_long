@@ -9,7 +9,6 @@ SRCS =	./get_next_line/get_next_line.c			\
 		so_long.c								\
 		hooks.c									\
 		exact_color.c							\
-		make_background.c						\
 		put_image.c								\
 		check_maps.c							\
 		check_maps_path.c						\

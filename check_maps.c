@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:17 by seungule          #+#    #+#             */
-/*   Updated: 2023/10/29 19:17:14 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:26:25 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ int	check_string(t_map *map, char *string, int height)
 	int	i;
 	int	len;
 
-	len = ft_strlen(string) - 2;
+	len = ft_strlen(string) - 1;
 	i = 0;
-	//ft_printf("height %d, map->map-height : %d\n", height, map->map_height);
-	if (string[0] != '1' || string[len] != '1')
+	if (string[0] != '1' || string[len - 1] != '1')
 		return (0);
 	while (i < len)
 	{
@@ -44,7 +43,6 @@ void	check_map_height(t_map *map)
 		if (!string)
 			break ;
 		width = ft_strlen(string) - 1;
-		//printf("check_map_height in width : %d\n", width);
 		if (map->map_height != 0 && width != map->map_width)
 			error();
 		map->map_width = width;
@@ -61,7 +59,7 @@ void	check_maps(t_map *map)
 	char	*string;
 
 	height = 1;
-	check_map_height(map);                    //맵의 height와 width를 검사
+	check_map_height(map);
 	if (map->map_height <= 0)
 		error();
 	fd = open("./maps/maps.ber", O_RDONLY);
@@ -70,7 +68,7 @@ void	check_maps(t_map *map)
 		string = get_next_line(fd);
 		if (!string)
 			break ;
-		if(!check_string(map, string, height)) // 벽이 1로 둘러쌓여 있는지 검사
+		if(!check_string(map, string, height))
 		{
 			free(string);
 			close(fd);

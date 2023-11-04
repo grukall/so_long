@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:43:04 by seungule          #+#    #+#             */
-/*   Updated: 2023/10/29 19:56:47 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:45:14 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@
 # include <fcntl.h>
 # include <errno.h>
 
-# define	Exit	0
-# define	Player	1
-# define	Item	2
+# define	EXIT			0
+# define	PLAYER			1
+# define	ITEM			2
+# define	ESC				53
+# define	RED_X_BUTTON	17
+# define	LEFT			123
+# define	UP				125
+# define	RIGHT			124
+# define	DOWN			126
 
 typedef struct s_data
 {
@@ -37,13 +43,20 @@ typedef struct s_data
 	int		img_height;
 }	t_data;
 
-typedef struct s_vars
+
+typedef struct s_block
 {
-	void	*mlx;
-	void	*win;
-	int		win_width;
-	int		win_height;
-}	t_vars;
+	t_data	bg_block;
+	t_data	wall_block;
+	t_data	player_block;
+	t_data	item_block;
+	t_data	exit_block;
+	char	*bg_path;
+	char	*wall_path;
+	char	*player_path;
+	char	*item_path;
+	char	*exit_path;
+}t_block;
 
 typedef struct s_map
 {
@@ -55,22 +68,34 @@ typedef struct s_map
 	char	**map_info;
 }	t_map;
 
-int				exit_hook(void);
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+	int		win_width;
+	int		win_height;
+	int		move_count;
+	t_map	map;
+	t_block	block;
+}	t_vars;
+
 int				key_hook(int keycode, t_vars *vars);
+int				exit_hook(t_vars *vars);
 
 unsigned int	exact_image_color(t_data *image, int i, int j);
-void			make_background(t_data *background, t_vars *vars);
 void			put_image(t_data *image, t_data *block, int image_x, int image_y);
 void			put_image_empty(t_data *image, int image_x, int image_y);
 
 void			check_maps(t_map *map);
 void			check_maps_path(t_map *map);
-int				make_map(t_data *image, t_map *map, t_vars *vars);
+void			get_blocks_info(t_vars *vars);
+int				make_map(t_vars *vars);
 void			print_maps(t_map *map);
 void			free_map(t_map *map, char **checked_map);
 
 int				dfs(t_map *map, char **checked_map, int start_hei, int start_wid);
 
+void			free_map_not_error(t_vars *vars, char **checked_map);
 void			error(void);
 
 #endif

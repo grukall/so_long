@@ -6,77 +6,73 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:26:19 by seungule          #+#    #+#             */
-/*   Updated: 2023/10/29 20:13:16 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:08:42 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	make_map(t_data *image, t_map *map, t_vars *vars)
+void	get_blocks_info(t_vars *vars)
 {
-	int		fd;
-	char	*buffer;
+	vars->block.bg_path = "./images/background.xpm";
+	vars->block.wall_path = "./images/block.xpm";
+	vars->block.player_path = "./images/player.xpm";
+	vars->block.item_path = "./images/item.xpm";
+	vars->block.exit_path = "./images/exit.xpm";
+	vars->block.bg_block.img_width = 50;
+	vars->block.bg_block.img_height = 50;
+	vars->block.wall_block.img_width = 50;
+	vars->block.wall_block.img_height = 50;
+	vars->block.player_block.img_width = 50;
+	vars->block.player_block.img_height = 50;
+	vars->block.item_block.img_width = 50;
+	vars->block.item_block.img_height = 50;
+	vars->block.exit_block.img_width = 50;
+	vars->block.exit_block.img_height = 50;
+	vars->block.bg_block.img = mlx_xpm_file_to_image(vars->mlx, vars->block.bg_path, &vars->block.bg_block.img_width, &vars->block.bg_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
+	vars->block.bg_block.addr = mlx_get_data_addr(vars->block.bg_block.img, &vars->block.bg_block.bits_per_pixel, &vars->block.bg_block.line_length, &vars->block.bg_block.endian); //이미지 파일 주소 가져오기
+	vars->block.wall_block.img = mlx_xpm_file_to_image(vars->mlx, vars->block.wall_path, &vars->block.wall_block.img_width, &vars->block.wall_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
+	vars->block.wall_block.addr = mlx_get_data_addr(vars->block.wall_block.img, &vars->block.wall_block.bits_per_pixel, &vars->block.wall_block.line_length, &vars->block.wall_block.endian); //이미지 파일 주소 가져오기
+	vars->block.player_block.img = mlx_xpm_file_to_image(vars->mlx, vars->block.player_path, &vars->block.player_block.img_width, &vars->block.player_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
+	vars->block.player_block.addr = mlx_get_data_addr(vars->block.player_block.img, &vars->block.player_block.bits_per_pixel, &vars->block.player_block.line_length, &vars->block.player_block.endian); //이미지 파일 주소 가져오기
+	vars->block.item_block.img = mlx_xpm_file_to_image(vars->mlx, vars->block.item_path, &vars->block.item_block.img_width, &vars->block.item_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
+	vars->block.item_block.addr = mlx_get_data_addr(vars->block.item_block.img, &vars->block.item_block.bits_per_pixel, &vars->block.item_block.line_length, &vars->block.item_block.endian); //이미지 파일 주소 가져오기
+	vars->block.exit_block.img = mlx_xpm_file_to_image(vars->mlx, vars->block.exit_path, &vars->block.exit_block.img_width, &vars->block.exit_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
+	vars->block.exit_block.addr = mlx_get_data_addr(vars->block.exit_block.img, &vars->block.exit_block.bits_per_pixel, &vars->block.exit_block.line_length, &vars->block.exit_block.endian); //이미지 파일 주소 가져오기
+}
+
+int	make_map(t_vars *vars)
+{
+	t_data	image;
 	int		i;
 	int		j;
-	t_data	wall_block;
-	t_data	player_block;
-	t_data	item_block;
-	t_data	exit_block;
-	char	*wall_path = "./images/block.xpm";
-	char	*player_path = "./images/player.xpm";
-	char	*item_path = "./images/item.xpm";
-	char	*exit_path = "./images/exit.xpm";
 
-	fd = open("./maps/maps.ber", O_RDONLY);
-	(void)map;
-	wall_block.img_width = 50;
-	wall_block.img_height = 50;
-	player_block.img_width = 50;
-	player_block.img_height = 50;
-	item_block.img_width = 50;
-	item_block.img_height = 50;
-	exit_block.img_width = 50;
-	exit_block.img_height = 50;
-
-	wall_block.img = mlx_xpm_file_to_image(vars->mlx, wall_path, &wall_block.img_width, &wall_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
-	wall_block.addr = mlx_get_data_addr(wall_block.img, &wall_block.bits_per_pixel, &wall_block.line_length, &wall_block.endian); //이미지 파일 주소 가져오기
-
-	player_block.img = mlx_xpm_file_to_image(vars->mlx, player_path, &player_block.img_width, &player_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
-	player_block.addr = mlx_get_data_addr(player_block.img, &player_block.bits_per_pixel, &player_block.line_length, &player_block.endian); //이미지 파일 주소 가져오기
-
-	item_block.img = mlx_xpm_file_to_image(vars->mlx, item_path, &item_block.img_width, &item_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
-	item_block.addr = mlx_get_data_addr(item_block.img, &item_block.bits_per_pixel, &item_block.line_length, &item_block.endian); //이미지 파일 주소 가져오기
-
-	exit_block.img = mlx_xpm_file_to_image(vars->mlx, exit_path, &exit_block.img_width, &exit_block.img_height); //백그라운드 블록 이미지 파일 변환 후 저장
-	exit_block.addr = mlx_get_data_addr(exit_block.img, &exit_block.bits_per_pixel, &exit_block.line_length, &exit_block.endian); //이미지 파일 주소 가져오기
-
-	image->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height); //배경이 될 이미지 생성(윈도우 크기에 맞춰서)
-	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel, &image->line_length, &image->endian); //배경 주소 가져오기
-
-	j = 0;
-	while (1)
+	i = 0;
+	image.img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height); //배경이 될 이미지 생성(윈도우 크기에 맞춰서)
+	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian); //배경 주소 가져오기
+	while (vars->map.map_info[i])
 	{
-		i = 0;
-		buffer = get_next_line(fd);
-		if (!buffer)
-			break ;
-		while (buffer[i])
+		j = 0;
+		while (vars->map.map_info[i][j])
 		{
-			if (buffer[i] == '1')
-				put_image(image, &wall_block, i * wall_block.img_width, j * wall_block.img_height); // '1'이면 벽 픽셀 그리기
-			else if (buffer[i] == 'P')
-				put_image(image, &player_block, i * player_block.img_width, j * player_block.img_height); // 'P'이면 player 그리기
-			else if (buffer[i] == 'C')
-				put_image(image, &item_block, i * item_block.img_width, j * item_block.img_height); // 'C'이면 item 그리기
-			else if (buffer[i] == 'E')
-				put_image(image, &exit_block, i * exit_block.img_width, j * exit_block.img_height); // 'E'이면 탈출구 그리기
-			else if (buffer[i] == '0')
-				put_image_empty(image, i * wall_block.img_width, j * wall_block.img_height);        // 빈 땅이면 투명블럭 출력
-			i++;
+			if (vars->map.map_info[i][j] == '1')
+				put_image(&image, &vars->block.wall_block, j * vars->block.wall_block.img_width, i * vars->block.wall_block.img_height); // '1'이면 벽 픽셀 그리기
+			else if (vars->map.map_info[i][j] == 'P')
+				put_image(&image, &vars->block.player_block, j * vars->block.player_block.img_width, i * vars->block.player_block.img_height); // 'P'이면 player 그리기
+			else if (vars->map.map_info[i][j] == 'C')
+				put_image(&image, &vars->block.item_block, j * vars->block.item_block.img_width, i * vars->block.item_block.img_height); // 'C'이면 item 그리기
+			else if (vars->map.map_info[i][j] == 'E')
+				put_image(&image, &vars->block.exit_block, j * vars->block.exit_block.img_width, i * vars->block.exit_block.img_height); // 'E'이면 탈출구 그리기
+			else if (vars->map.map_info[i][j] == '0')
+				put_image(&image, &vars->block.bg_block, j * vars->block.wall_block.img_width, i * vars->block.wall_block.img_height); // 빈 땅이면 투명블럭 출력
+			j++;
 		}
-		j++;
+		i++;
 	}
-	close(fd);
-	mlx_put_image_to_window(vars->mlx, vars->win, image->img, 0, 0);					  //윈도우에 image.img 넣기
+	mlx_put_image_to_window(vars->mlx, vars->win, image.img, 0, 0);					  //윈도우에 image.img 넣기
+	free(image.img);
+	free(image.addr);
+	image.img = NULL;
+	image.addr = NULL;
 	return (0);
 }
