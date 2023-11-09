@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 20:34:17 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/04 20:26:25 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:50:54 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_map_height(t_map *map)
 	int		width;
 	char	*string;
 
-	fd = open("./maps/maps.ber", O_RDONLY);
+	fd = open("./maps/maps3.ber", O_RDONLY);
 	while (1)
 	{
 		string = get_next_line(fd);
@@ -62,13 +62,13 @@ void	check_maps(t_map *map)
 	check_map_height(map);
 	if (map->map_height <= 0)
 		error();
-	fd = open("./maps/maps.ber", O_RDONLY);
+	fd = open("./maps/maps3.ber", O_RDONLY);
 	while (1)
 	{
 		string = get_next_line(fd);
 		if (!string)
 			break ;
-		if(!check_string(map, string, height))
+		if (!check_string(map, string, height))
 		{
 			free(string);
 			close(fd);

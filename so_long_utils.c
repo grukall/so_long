@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 21:21:35 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/04 19:54:02 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:47:28 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	print_maps(t_map *map)
 			break ;
 		while (map->map_info[i][j])
 			ft_printf("%c", map->map_info[i][j++]);
+		ft_printf("\n");
 		i++;
 	}
 }
@@ -42,7 +43,7 @@ void	free_map(t_map *map, char **checked_map)
 	i = 0;
 	if (map && map->map_info)
 	{
-		while (map->map_info[i])
+		while (i < map->map_height)
 			free(map->map_info[i++]);
 		free(map->map_info);
 		map->map_info = NULL;
@@ -58,21 +59,23 @@ void	free_map(t_map *map, char **checked_map)
 	error();
 }
 
-void	free_map_not_error(t_vars *vars, char **checked_map)
+void	free_map_not_error(t_vars *vars, char **checked_map, int height)
 {
 	int	i;
 
 	i = 0;
 	if (vars && vars->map.map_info)
 	{
-		while (vars->map.map_info[i])
+		while (i < vars->map.map_height)
+		{
 			free(vars->map.map_info[i++]);
+		}
 		free(vars->map.map_info);
 	}
 	i = 0;
 	if (checked_map)
 	{
-		while (checked_map[i])
+		while (i < height)
 			free(checked_map[i++]);
 		free(checked_map);
 	}

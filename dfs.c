@@ -6,14 +6,14 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:31:06 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/04 17:21:09 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:30:22 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
- int	dfs(t_map *map, char **checked_map, int hei, int wid)
- {
+int	dfs(t_map *map, char **checked_map, int hei, int wid)
+{
 	int	result;
 
 	checked_map[hei][wid] = 1;

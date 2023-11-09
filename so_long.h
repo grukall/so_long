@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:43:04 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/04 18:45:14 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:01:40 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,18 @@ typedef struct s_vars
 int				key_hook(int keycode, t_vars *vars);
 int				exit_hook(t_vars *vars);
 
-unsigned int	exact_image_color(t_data *image, int i, int j);
-void			put_image(t_data *image, t_data *block, int image_x, int image_y);
-void			put_image_empty(t_data *image, int image_x, int image_y);
-
 void			check_maps(t_map *map);
-void			check_maps_path(t_map *map);
+void			check_maps_path(t_vars *vars);
 void			get_blocks_info(t_vars *vars);
+void			get_blocks_info2(t_vars *vars);
+void			get_blocks_info3(t_vars *vars);
 int				make_map(t_vars *vars);
 void			print_maps(t_map *map);
 void			free_map(t_map *map, char **checked_map);
 
 int				dfs(t_map *map, char **checked_map, int start_hei, int start_wid);
 
-void			free_map_not_error(t_vars *vars, char **checked_map);
+void			free_map_not_error(t_vars *vars, char **checked_map, int width);
 void			error(void);
 
 #endif

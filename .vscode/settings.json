@@ -1,9 +1,7 @@
 {
 	"files.associations": {
 		"*.json": "c",
-		"ios": "c",
-		"locale": "c",
-		"string": "c",
-		"iosfwd": "c"
+		"chrono": "c",
+		"unordered_map": "c"
 	}
 }
