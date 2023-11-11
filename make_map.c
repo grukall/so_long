@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:26:19 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/09 19:45:28 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:06:24 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,6 @@ void	get_blocks_info(t_vars *vars)
 	vars->block.player_path = "./images/player.xpm";
 	vars->block.item_path = "./images/item.xpm";
 	vars->block.exit_path = "./images/exit.xpm";
-	vars->block.bg_block.img_width = 50;
-	vars->block.bg_block.img_height = 50;
-	vars->block.wall_block.img_width = 50;
-	vars->block.wall_block.img_height = 50;
-	vars->block.player_block.img_width = 50;
-	vars->block.player_block.img_height = 50;
-	vars->block.item_block.img_width = 50;
-	vars->block.item_block.img_height = 50;
-	vars->block.exit_block.img_width = 50;
-	vars->block.exit_block.img_height = 50;
 }
 
 void	put_image(t_vars *vars, int i, int j)

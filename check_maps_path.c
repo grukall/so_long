@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:57:04 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/09 19:50:43 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:29:26 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	mapcpy(t_map *map, char ch, int i, int j)
 	return (j + 1);
 }
 
-void	get_maps_info(t_map *map)
+void	get_maps_info(t_map *map, char *map_path)
 {
 	int		fd;
 	int		i;
@@ -40,7 +40,7 @@ void	get_maps_info(t_map *map)
 	while (i < map->map_height + 1)
 		map->map_info[i++] = (char *)malloc(sizeof(char)
 				* (map->map_width + 1));
-	fd = open("./maps/maps3.ber", O_RDONLY);
+	fd = open(map_path, O_RDONLY);
 	i = 0;
 	while (i < map->map_height + 1)
 	{
@@ -57,7 +57,7 @@ void	get_maps_info(t_map *map)
 	close(fd);
 }
 
-void	check_maps_path(t_vars *vars)
+void	check_maps_path(t_vars *vars, char *map_path)
 {
 	char	**checked_map;
 	t_map	*map;
@@ -65,7 +65,7 @@ void	check_maps_path(t_vars *vars)
 	int		item_count;
 
 	map = &(vars->map);
-	get_maps_info(map);
+	get_maps_info(map, map_path);
 	if (map->count[ITEM] <= 0 || map->count[PLAYER] != 1
 		|| map->count[EXIT] != 1)
 		free_map(map, NULL);

@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:43:04 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/09 19:01:40 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:25:42 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ typedef struct s_vars
 int				key_hook(int keycode, t_vars *vars);
 int				exit_hook(t_vars *vars);
 
-void			check_maps(t_map *map);
-void			check_maps_path(t_vars *vars);
+void			check_maps(t_map *map, char *map_path);
+void			check_maps_path(t_vars *vars, char *map_path);
 void			get_blocks_info(t_vars *vars);
 void			get_blocks_info2(t_vars *vars);
 void			get_blocks_info3(t_vars *vars);
