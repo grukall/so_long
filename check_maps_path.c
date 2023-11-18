@@ -6,7 +6,7 @@
 /*   By: seungule <seungule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 14:57:04 by seungule          #+#    #+#             */
-/*   Updated: 2023/11/11 13:29:26 by seungule         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:07:07 by seungule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_maps_path(t_vars *vars, char *map_path)
 	checked_map[map->map_height] = NULL;
 	item_count = map->count[ITEM];
 	if (!dfs(map, checked_map, map->plr_hei, map->plr_wid)
-		|| map->count[ITEM] != 0)
+		|| map->count[ITEM] != 0 || map->count[EXIT] != 0)
 		free_map(map, checked_map);
 	free_map_not_error(NULL, checked_map, map->map_height + 1);
 	map->count[ITEM] = item_count;
